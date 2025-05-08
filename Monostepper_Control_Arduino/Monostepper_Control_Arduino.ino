@@ -1,15 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
 #include <Stepper.h>
 
 #define StepsPerRevolution 2038
