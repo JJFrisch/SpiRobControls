@@ -3,7 +3,7 @@
 
 #define StepsPerRevolution 2038
 
-#define max_length 3 // in inches
+#define max_length 30 // in inches
 #define radius_of_spin 0.2 // in inches
 double circumference = 2 * 3.14159265359 * radius_of_spin;
 
@@ -52,6 +52,6 @@ void loop(){
   move(StepsPerRevolution); // steps, speed=10
   delay(1000);
 
-  move(300, 12); // steps, speed
+  move(3000, 12); // steps, speed
   delay(1000);
 }
