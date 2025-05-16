@@ -44,7 +44,7 @@ void loop() {
       Serial.print(cm);
       Serial.println(" cm");
     } else {
-      Serial.println("❌ Move would exceed limits. Ignored.");
+      Serial.println("Move would exceed limits. Ignored.");
     }
 
     Serial.print("Current position: ");
