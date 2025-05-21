@@ -21,6 +21,10 @@ Install additional dependencies:
 
 bashpip install torch torchvision scipy
 
+Run this from the terminal:
+python mujoco/spirob_env.py
+
+
 Project Structure
 Create this directory structure:
 spirob_simulation/
@@ -49,3 +53,7 @@ Now let's create the configuration file for MuJoCo:
 config.yaml
 Now, let's implement the Isaac Gym environment for parallel simulation:
 spirob_task.py
+
+Credit to:
+https://yasunori.jp/en/2024/07/13/mujoco-model-yourself.html
+https://github.com/google-deepmind/mujoco_menagerie
