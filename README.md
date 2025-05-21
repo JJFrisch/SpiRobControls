@@ -5,6 +5,18 @@
 ##### What are we doing? why? Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
+Credit to Zhanchi Wang, Nikolaos M. Freris, Xi Wei,  
+SpiRobs: Logarithmic spiral-shaped robots for versatile grasping across scales,  
+Device,
+Volume 3, Issue 4,
+2025,
+100646,
+ISSN 2666-9986,
+https://doi.org/10.1016/j.device.2024.100646.
+(https://www.sciencedirect.com/science/article/pii/S2666998624006033)  
+Keywords: soft robots; logarithmic spiral; multi-scale design; bioinspired design and operation
+
+
 
 **May 6th 20205**
 
