@@ -42,6 +42,19 @@ We ran into an issue with printing using the right nozzle. Switching the TPU fil
 
 https://github.com/user-attachments/assets/064c2381-0a16-4408-b68d-ab61ad8286e9
 
+The updates as shown and described in the commit - first rotary spool test failure -
+
+[![Spool Test Demo](./media/spool-test-thumb.png)](https://drexel0-my.sharepoint.com/:v:/r/personal/jfw69_drexel_edu/Documents/Videos/Clipchamp/Video%20Project%202/Exports/SPIROBS_UPDATE_SPOOL_TEST.mp4?csf=1&web=1&e=miKF8t)
+
+In the next test, we mitigate some of the preliminary mistakes - lose cables around the spoolss, a slightly better anchored "anchor" string to vieew the actuation behavior. Visible actuation but obviously uncontrolled and in need of much refinement:
+see below:
+
+[![Spool test Demonstration number 2](https://drexel0-my.sharepoint.com/:v:/r/personal/jfw69_drexel_edu/Documents/Videos/Clipchamp/Video%20Project%204/Exports/SPOOL_TEST_UPDATE_05132025.mp4?csf=1&web=1&e=x9gOBd)
+
+
+There are a few kinks to sort out -the spools connection to cable and shaft, the wrap around and the control of the actuation. Promising first steps.
+
+
 
 
 
