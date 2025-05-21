@@ -1,0 +1,51 @@
+Required Software
+
+MuJoCo (for detailed physical modeling)
+Isaac Gym (for GPU-accelerated parallel simulations)
+Python 3.7+ (compatible with both MuJoCo and Isaac Gym)
+NumPy (for numerical operations)
+
+Project Setup for MuJoCo
+First, let's set up the MuJoCo environment:
+bash# Install MuJoCo
+pip install mujoco
+
+# Additional dependencies
+pip install numpy matplotlib dm_control
+Project Setup for Isaac Gym
+For Isaac Gym:
+
+Download Isaac Gym Preview from NVIDIA's developer website
+Follow their installation instructions (typically extracting and running their setup script)
+Install additional dependencies:
+
+bashpip install torch torchvision scipy
+
+Project Structure
+Create this directory structure:
+spirob_simulation/
+├── mujoco/
+│   ├── models/
+│   │   ├── spirob.xml       # MuJoCo model definition
+│   │   ├── meshes/          # STL/OBJ files of your 3D printed parts
+│   ├── spirob_env.py        # MuJoCo environment wrapper
+│   └── config.yaml          # Configuration parameters
+├── isaac_gym/
+│   ├── assets/
+│   │   ├── spirob.urdf      # URDF model for Isaac Gym
+│   │   ├── meshes/          # Same mesh files
+│   ├── spirob_task.py       # Isaac Gym task definition
+│   └── config.yaml          # Configuration parameters
+└── common/
+    ├── rl_utils.py          # Shared RL utilities
+    └── spirob_params.py     # Physical parameters of your robot
+
+MuJoCo Implementation
+Let's start with the spirob.xml file which defines your robot in MuJoCo:
+spirob.xml
+Now, let's create the MuJoCo environment class:
+spirob_env.py
+Now let's create the configuration file for MuJoCo:
+config.yaml
+Now, let's implement the Isaac Gym environment for parallel simulation:
+spirob_task.py

@@ -1,0 +1,101 @@
+<mujoco model="3_cable_spirob">
+    <compiler angle="degree" coordinate="local" meshdir="meshes/"/>
+    
+    <option integrator="RK4" timestep="0.002"/>
+    
+    <default>
+        <geom conaffinity="0" condim="3" friction="1 0.5 0.5"/>
+        <joint armature="1" damping="1" limited="true"/>
+        <tendon limited="true" stiffness="50" damping="5"/>
+    </default>
+    
+    <asset>
+        <mesh name="base" file="base.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="end_effector" file="end_effector.stl" scale="0.001 0.001 0.001"/>
+        <mesh name="target_object" file="target_object.stl" scale="0.001 0.001 0.001"/>
+        <material name="base_mat" rgba="0.7 0.7 0.7 1"/>
+        <material name="effector_mat" rgba="0.2 0.4 0.8 1"/>
+        <material name="cable_mat" rgba="0.1 0.1 0.1 1"/>
+        <material name="object_mat" rgba="1 0.5 0.2 1"/>
+    </asset>
+    
+    <worldbody>
+        <!-- Fixed base of the robot -->
+        <body name="base" pos="0 0 0">
+            <geom type="mesh" mesh="base" material="base_mat"/>
+            
+            <!-- Motor/pulley attachment points -->
+            <body name="motor1_mount" pos="0.1 0.1 0.2">
+                <site name="pulley1" pos="0 0 0" size="0.01"/>
+            </body>
+            
+            <body name="motor2_mount" pos="-0.1 0.1 0.2">
+                <site name="pulley2" pos="0 0 0" size="0.01"/>
+            </body>
+            
+            <body name="motor3_mount" pos="0 -0.1 0.2">
+                <site name="pulley3" pos="0 0 0" size="0.01"/>
+            </body>
+        </body>
+        
+        <!-- End effector (controlled by cables) -->
+        <body name="end_effector" pos="0 0 0.1">
+            <joint type="free"/>
+            <geom type="mesh" mesh="end_effector" material="effector_mat"/>
+            
+            <!-- Cable attachment points -->
+            <site name="attach1" pos="0.03 0.03 0" size="0.01"/>
+            <site name="attach2" pos="-0.03 0.03 0" size="0.01"/>
+            <site name="attach3" pos="0 -0.03 0" size="0.01"/>
+        </body>
+        
+        <!-- Object to manipulate -->
+        <body name="target_object" pos="0 0 0">
+            <joint type="free"/>
+            <geom type="mesh" mesh="target_object" material="object_mat"/>
+            <geom type="sphere" size="0.025" pos="0 0 0" material="object_mat" solref="0.01 1" solimp="1.0 0.95 0.001"/>
+        </body>
+        
+        <!-- Ground plane -->
+        <geom name="floor" pos="0 0 -0.025" size="1 1 0.02" type="plane" material="base_mat"/>
+    </worldbody>
+    
+    <tendon>
+        <!-- Cables -->
+        <spatial name="cable1" limited="true" range="0.05 0.3" width="0.001" material="cable_mat">
+            <site site="pulley1"/>
+            <site site="attach1"/>
+        </spatial>
+        
+        <spatial name="cable2" limited="true" range="0.05 0.3" width="0.001" material="cable_mat">
+            <site site="pulley2"/>
+            <site site="attach2"/>
+        </spatial>
+        
+        <spatial name="cable3" limited="true" range="0.05 0.3" width="0.001" material="cable_mat">
+            <site site="pulley3"/>
+            <site site="attach3"/>
+        </spatial>
+    </tendon>
+    
+    <actuator>
+        <!-- Cable length actuators (stepper motors) -->
+        <position name="motor1" tendon="cable1" kp="100" ctrlrange="-0.1 0.1" forcerange="-50 50"/>
+        <position name="motor2" tendon="cable2" kp="100" ctrlrange="-0.1 0.1" forcerange="-50 50"/>
+        <position name="motor3" tendon="cable3" kp="100" ctrlrange="-0.1 0.1" forcerange="-50 50"/>
+    </actuator>
+    
+    <sensor>
+        <tendonpos name="cable1_length" tendon="cable1"/>
+        <tendonpos name="cable2_length" tendon="cable2"/>
+        <tendonpos name="cable3_length" tendon="cable3"/>
+        
+        <tendonvel name="cable1_velocity" tendon="cable1"/>
+        <tendonvel name="cable2_velocity" tendon="cable2"/>
+        <tendonvel name="cable3_velocity" tendon="cable3"/>
+        
+        <force name="cable1_force" site="attach1"/>
+        <force name="cable2_force" site="attach2"/>
+        <force name="cable3_force" site="attach3"/>
+    </sensor>
+</mujoco>

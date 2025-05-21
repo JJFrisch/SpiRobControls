@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="spirob_3cable">
+    <compiler angle="radian" coordinate="local" meshdir="../meshes" texturedir="../textures"/>
+    <option timestep="0.002" integrator="RK4">
+        <flag warmstart="enable" energy="enable" contact="enable" gravity="enable"/>
+    </option>
+
+    <asset>
+        <!-- Create a simplified end-effector and object geometries -->
+        <material name="gripper_mat" specular="0.5" shininess="0.25" rgba="0.2 0.5 0.9 1"/>
+        <material name="motor_mat" specular="0.5" shininess="0.25" rgba="0.5 0.5 0.5 1"/>
+        <material name="cable_mat" specular="0.5" shininess="0.1" rgba="0.1 0.1 0.1 1"/>
+        <material name="target_mat" specular="0.5" shininess="0.25" rgba="1 0.2 0.2 1"/>
+        <material name="floor_mat" specular="0.5" shininess="0.1" rgba="0.5 0.5 0.7 1"/>
+    </asset>
+
+    <worldbody>
+        <!-- Arena -->
+        <light diffuse="0.8 0.8 0.8" pos="0 0 3" dir="0 0 -1" castshadow="false"/>
+        <camera name="maincam" mode="fixed" pos="0 -1.5 1.5" xyaxes="1 0 0 0 0.7 0.7"/>
+        <geom name="floor" material="floor_mat" type="plane" size="2 2 0.1" pos="0 0 0" rgba="0.5 0.5 0.7 1"/>
+        
+        <!-- Frame structure for mounting stepper motors -->
+        <body name="frame" pos="0 0 0">
+            <!-- Frame posts at three corners -->
+            <geom name="post1" type="cylinder" size="0.02 0.75" pos="0.5 0.5 0.75" material="motor_mat"/>
+            <geom name="post2" type="cylinder" size="0.02 0.75" pos="-0.5 0.5 0.75" material="motor_mat"/>
+            <geom name="post3" type="cylinder" size="0.02 0.75" pos="0 -0.5 0.75" material="motor_mat"/>
+            
+            <!-- Stepper motor 1 -->
+            <body name="motor1" pos="0.5 0.5 1.5">
+                <geom name="motor1_geom" type="box" size="0.04 0.04 0.04" material="motor_mat"/>
+                <site name="motor1_site" pos="0 0 0"/>
+            </body>
+            
+            <!-- Stepper motor 2 -->
+            <body name="motor2" pos="-0.5 0.5 1.5">
+                <geom name="motor2_geom" type="box" size="0.04 0.04 0.04" material="motor_mat"/>
+                <site name="motor2_site" pos="0 0 0"/>
+            </body>
+            
+            <!-- Stepper motor 3 -->
+            <body name="motor3" pos="0 -0.5 1.5">
+                <geom name="motor3_geom" type="box" size="0.04 0.04 0.04" material="motor_mat"/>
+                <site name="motor3_site" pos="0 0 0"/>
+            </body>
+        </body>
+        
+        <!-- End-effector (suspended gripper) -->
+        <body name="end_effector" pos="0 0 0.8">
+            <joint name="free_joint" type="free"/>
+            <geom name="ee_geom" type="sphere" size="0.05" material="gripper_mat" mass="0.1"/>
+            <site name="ee_site1" pos="0 0 0"/>
+            <site name="ee_site2" pos="0 0 0"/>
+            <site name="ee_site3" pos="0 0 0"/>
+        </body>
+        
+        <!-- Object to be picked -->
+        <body name="target" pos="0.1 0.1 0.05">
+            <joint name="target_joint" type="free"/>
+            <geom name="target_geom" type="sphere" size="0.03" material="target_mat" mass="0.05"/>
+        </body>
+    </worldbody>
+    
+    <!-- Tendons representing the cables -->
+    <tendon>
+        <spatial name="cable1" width="0.001" material="cable_mat">
+            <site site="motor1_site"/>
+            <site site="ee_site1"/>
+        </spatial>
+        <spatial name="cable2" width="0.001" material="cable_mat">
+            <site site="motor2_site"/>
+            <site site="ee_site2"/>
+        </spatial>
+        <spatial name="cable3" width="0.001" material="cable_mat">
+            <site site="motor3_site"/>
+            <site site="ee_site3"/>
+        </spatial>
+    </tendon>
+    
+    <!-- Actuators for the cables -->
+    <actuator>
+        <motor name="motor1" tendon="cable1" ctrlrange="-1 1" ctrllimited="true"/>
+        <motor name="motor2" tendon="cable2" ctrlrange="-1 1" ctrllimited="true"/>
+        <motor name="motor3" tendon="cable3" ctrlrange="-1 1" ctrllimited="true"/>
+    </actuator>
+    
+    <sensor>
+        <tendonpos name="cable1_length" tendon="cable1"/>
+        <tendonpos name="cable2_length" tendon="cable2"/>
+        <tendonpos name="cable3_length" tendon="cable3"/>
+        <tendonvel name="cable1_velocity" tendon="cable1"/>
+        <tendonvel name="cable2_velocity" tendon="cable2"/>
+        <tendonvel name="cable3_velocity" tendon="cable3"/>
+    </sensor>
+</mujoco>
