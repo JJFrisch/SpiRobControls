@@ -19,7 +19,7 @@ Download Isaac Gym Preview from NVIDIA's developer website
 Follow their installation instructions (typically extracting and running their setup script)
 Install additional dependencies:
 
-bashpip install torch torchvision scipy
+bash/pip install torch torchvision scipy
 
 Run this from the terminal:
 python mujoco/spirob_env.py

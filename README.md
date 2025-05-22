@@ -2,7 +2,10 @@
 
 
 ### Quick Abstract
-##### What are we doing? why? Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+##### What are we doing? why? Lorem ipsum dolor sit amet, 
+
+I am working with a two cable spirob. I have the physical system build, including the SpiRob, Arduino 28BYJ-84 step motors, a motor holder and a spool. Wires go through the SpiRob and around the spool. The motors turn the spool and control the SpiRob's movement. My goal is to simulate its movement and use reinforcement learning to teach it to pick up different objects. A possible extension would be to add a camera and teach it to catch thrown objects.
+
 
 
 Credit to Zhanchi Wang, Nikolaos M. Freris, Xi Wei,  
