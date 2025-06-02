@@ -66,6 +66,7 @@ void setup() {
 }
 
 bool isMoveValid(int motorIndex, long targetPosition) {
+  return true;
   
   switch (motorIndex) {
     case 0:
@@ -143,23 +144,23 @@ void handleIRCommand(unsigned long command) {
 
   switch (command) {
     case 0xC: // Button 1: Move motor 1 +100 steps
-      if (isMoveValid(0, positions[0] + 100)) {positions[0] += one_click_steps; positions[1] += relax_steps;}
+      if (isMoveValid(0, positions[0] + one_click_steps)) {positions[0] += one_click_steps; positions[1] += relax_steps;}
       else Serial.println("M1 move blocked by limits.");
       break;
 
     case 0x18: // Button 2: Move motor 1 -100 steps
-      if (isMoveValid(0, positions[0] - 100)) {positions[0] += one_click_steps; positions[1] += relax_steps;}
+      if (isMoveValid(0, positions[0] - one_click_steps)) {positions[0] -= one_click_steps; positions[1] -= relax_steps;}
       else Serial.println("M1 move blocked by limits.");
       break;
 
-    case 0xC5E: // Button 3: Move motor 2 +100 steps
-      if (isMoveValid(1, positions[1] + 100)) {positions[1] += one_click_steps; positions[0] += relax_steps;}
-      else Serial.println("M1 move blocked by limits.");
+    case 0x5E: // Button 3: Move motor 2 +100 steps
+      if (isMoveValid(1, positions[1] + one_click_steps)) {positions[1] += one_click_steps; positions[0] += relax_steps;}
+      else Serial.println("M2 move blocked by limits.");
       break;
 
     case 0x8: // Button 4: Move motor 2 -100 steps
-      if (isMoveValid(1, positions[1] - 100)) {positions[1] += one_click_steps; positions[0] += relax_steps;}
-      else Serial.println("M1 move blocked by limits.");
+      if (isMoveValid(1, positions[1] - one_click_steps)) {positions[1] -= one_click_steps; positions[0] -= relax_steps;}
+      else Serial.println("M2 move blocked by limits.");
       break;
 
     case 0x46: // VOL+ : Move all motors +200 steps
@@ -190,6 +191,7 @@ void handleIRCommand(unsigned long command) {
       positions[0] = 0;
       positions[1] = 0;
       positions[2] = 0;
+      Serial.println("Motors returning to 0.");
       break;
 
     default:
