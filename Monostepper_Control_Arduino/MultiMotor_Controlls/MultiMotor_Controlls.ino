@@ -1,5 +1,7 @@
 #include <AccelStepper.h>
 #include <MultiStepper.h>
+#include <IRremote.hpp>
+
 
 // Define pins for 3 stepper motors
 #define motor1_pin1 8
@@ -18,9 +20,10 @@
 #define motor3_pin4 A1
 
 // max steps for each motor
-const long M1_MAX_STEPS = 3000;
-const long M2_MAX_STEPS = 2500;
-const long M3_MAX_STEPS = 2000;
+const long MAX_STEPS = 4000;
+const long M1_MAX_STEPS = 4000;
+const long M2_MAX_STEPS = 4000;
+const long M3_MAX_STEPS = 4000;
 
 #define IR_RECEIVE_PIN 12
 
@@ -30,8 +33,6 @@ AccelStepper stepper3(AccelStepper::FULL4WIRE, motor3_pin1, motor3_pin3, motor3_
 
 MultiStepper steppers;
 
-IRrecv irrecv(IR_RECEIVE_PIN);
-decode_results results;
 
 long positions[3]; // target positions for 3 motors
 
@@ -40,6 +41,7 @@ bool stringComplete = false;
 
 void setup() {
   Serial.begin(9600);
+  IrReceiver.begin(IR_RECEIVE_PIN); // Initialize the global receiver object
 
   // Add steppers to MultiStepper controller
   steppers.addStepper(stepper1);
@@ -57,47 +59,23 @@ void setup() {
   stepper3.setAcceleration(200);
 
   // Initialize IR receiver
-  irrecv.enableIRIn();
+  IrReceiver.enableIRIn();
 
   Serial.println("Enter commands like:");
   Serial.println("M1:100 M2:-50 M3:200");
 }
 
 bool isMoveValid(int motorIndex, long targetPosition) {
-  // Check position bounds
-  if (targetPosition < 0) {
-    // Check limit switch for zero position
-    switch (motorIndex) {
-      case 0:
-        if (digitalRead(M1_LIMIT_PIN) == LOW) { // pressed
-          Serial.println("M1 limit switch triggered - move blocked");
-          return false;
-        }
-        break;
-      case 1:
-        if (digitalRead(M2_LIMIT_PIN) == LOW) {
-          Serial.println("M2 limit switch triggered - move blocked");
-          return false;
-        }
-        break;
-      case 2:
-        if (digitalRead(M3_LIMIT_PIN) == LOW) {
-          Serial.println("M3 limit switch triggered - move blocked");
-          return false;
-        }
-        break;
-    }
-  }
-
+  
   switch (motorIndex) {
     case 0:
-      if (targetPosition > M1_MAX_STEPS) return false;
+      if (targetPosition > M1_MAX_STEPS || targetPosition < -M1_MAX_STEPS) return false;
       break;
     case 1:
-      if (targetPosition > M2_MAX_STEPS) return false;
+      if (targetPosition > M2_MAX_STEPS || targetPosition < -M2_MAX_STEPS) return false;
       break;
     case 2:
-      if (targetPosition > M3_MAX_STEPS) return false;
+      if (targetPosition > M3_MAX_STEPS || targetPosition < -M3_MAX_STEPS) return false;
       break;
   }
 
@@ -114,9 +92,9 @@ void loop() {
   }
 
   // Check IR remote input
-  if (irrecv.decode(&results)) {
-    handleIRCommand(results.value);
-    irrecv.resume();
+  if (IrReceiver.decode()) {
+    handleIRCommand(IrReceiver.decodedIRData.command);
+    IrReceiver.resume();
   }
 
   // Move motors toward target positions
@@ -132,8 +110,8 @@ void parseSerialCommand(String cmd) {
 
   idx = cmd.indexOf("M1:");
   if (idx != -1) {
-    int end = cmd.indexOf(' ', idx);
-    String val = cmd.substring(idx + 3, end == -1 ? cmd.length() : end);
+    int end1 = cmd.indexOf(' ', idx);
+    String val = cmd.substring(idx + 3, end1 == -1 ? cmd.length() : end1);
     long newPos = positions[0] + val.toInt();
     if (isMoveValid(0, newPos)) {
       positions[0] = newPos;
@@ -142,31 +120,6 @@ void parseSerialCommand(String cmd) {
     }
   }
 
-  idx = cmd.indexOf("M2:");
-  if (idx != -1) {
-    int end = cmd.indexOf(' ', idx);
-    String val = cmd.substring(idx + 3, end == -1 ? cmd.length() : end);
-    long newPos = positions[1] + val.toInt();
-    if (isMoveValid(1, newPos)) {
-      positions[1] = newPos;
-    } else {
-      Serial.println("Move for M2 blocked by limit or bounds.");
-    }
-  }
-
-  idx = cmd.indexOf("M3:");
-  if (idx != -1) {
-    int end = cmd.indexOf(' ', idx);
-    String val = cmd.substring(idx + 3, end == -1 ? cmd.length() : end);
-    long newPos = positions[2] + val.toInt();
-    if (isMoveValid(2, newPos)) {
-      positions[2] = newPos;
-    } else {
-      Serial.println("Move for M3 blocked by limit or bounds.");
-    }
-  }
-
-  steppers.moveTo(positions);
 
   Serial.print("Moving to positions: M1=");
   Serial.print(positions[0]);
@@ -181,14 +134,31 @@ void handleIRCommand(unsigned long command) {
   positions[1] = stepper2.currentPosition();
   positions[2] = stepper3.currentPosition();
 
+  Serial.print("Command: 0x");
+  Serial.println(command, HEX);
+
+  double relax_ratio = 0.3;
+  double one_click_steps = 100;
+  double relax_steps = one_click_steps * relax_ratio;
+
   switch (command) {
     case 0xC: // Button 1: Move motor 1 +100 steps
-      if (isMoveValid(0, positions[0] + 100)) positions[0] += 100;
+      if (isMoveValid(0, positions[0] + 100)) {positions[0] += one_click_steps; positions[1] += relax_steps;}
       else Serial.println("M1 move blocked by limits.");
       break;
 
     case 0x18: // Button 2: Move motor 1 -100 steps
-      if (isMoveValid(0, positions[0] - 100)) positions[0] -= 100;
+      if (isMoveValid(0, positions[0] - 100)) {positions[0] += one_click_steps; positions[1] += relax_steps;}
+      else Serial.println("M1 move blocked by limits.");
+      break;
+
+    case 0xC5E: // Button 3: Move motor 2 +100 steps
+      if (isMoveValid(1, positions[1] + 100)) {positions[1] += one_click_steps; positions[0] += relax_steps;}
+      else Serial.println("M1 move blocked by limits.");
+      break;
+
+    case 0x8: // Button 4: Move motor 2 -100 steps
+      if (isMoveValid(1, positions[1] - 100)) {positions[1] += one_click_steps; positions[0] += relax_steps;}
       else Serial.println("M1 move blocked by limits.");
       break;
 
@@ -227,6 +197,9 @@ void handleIRCommand(unsigned long command) {
       return;
   }
 
+
+  // For the MoveTO the passive motors need to relax some of the wire
+  // A 1 to 1 ratio does not work.
   steppers.moveTo(positions);
   Serial.println("Motors moving to new positions.");
 }
