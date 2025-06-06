@@ -5,6 +5,7 @@
 ### Max Range of Motion Test in Each Direction  
 To the left as shown:  
 <img src="../../Assets/Left_Motor_Max_Pull_Image.jpg" width="200">
+<video src="path/to/video.mp4" width="320" height="240" controls></video>
 
 
 The motor has a limit on how tight of a spiral it can pull the SpiRob into. With my hands I can pull the wire and the SpiRob will continue to bend into its full spiral, but 
