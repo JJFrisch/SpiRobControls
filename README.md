@@ -70,6 +70,11 @@ see below:
 There are a few kinks to sort out -the spools connection to cable and shaft, the wrap around and the control of the actuation. Promising first steps.
 
 
+# Flaws and Possible Improvements
 
+ - Stronger motors: the arduino step motor 28BJY-48 does not produce enough torque to fully curl or control the two-cable SpiRob. 
+ - We use fishing wire. It is too stretchable a wire which stretches instead of pulling the SpiRob at ends of the domain where tension is high.
+ - When printing the SpiRob arm we used too low an infil percent. The structure of the SpiRob sometimes buckles under higher stress.
+ - Our robot lacked an elastic core to produce a restoring force towards the initial position. 
 
 
