@@ -20,10 +20,10 @@
 #define motor3_pin4 A1
 
 // max steps for each motor
-const long MAX_STEPS = 4000;
-const long M1_MAX_STEPS = 4000;
-const long M2_MAX_STEPS = 4000;
-const long M3_MAX_STEPS = 4000;
+const long MAX_STEPS = 5000;
+const long M1_MAX_STEPS = 5000;
+const long M2_MAX_STEPS = 5000;
+const long M3_MAX_STEPS = 5000;
 
 #define IR_RECEIVE_PIN 12
 
@@ -65,9 +65,7 @@ void setup() {
   Serial.println("M1:100 M2:-50 M3:200");
 }
 
-bool isMoveValid(int motorIndex, long targetPosition) {
-  return true;
-  
+bool isMoveValid(int motorIndex, long targetPosition) {  
   switch (motorIndex) {
     case 0:
       if (targetPosition > M1_MAX_STEPS || targetPosition < -M1_MAX_STEPS) return false;
@@ -135,31 +133,28 @@ void handleIRCommand(unsigned long command) {
   positions[1] = stepper2.currentPosition();
   positions[2] = stepper3.currentPosition();
 
-  Serial.print("Command: 0x");
-  Serial.println(command, HEX);
-
-  double relax_ratio = 0.3;
+  double relax_ratio = 0.2;
   double one_click_steps = 100;
   double relax_steps = one_click_steps * relax_ratio;
 
   switch (command) {
     case 0xC: // Button 1: Move motor 1 +100 steps
-      if (isMoveValid(0, positions[0] + one_click_steps)) {positions[0] += one_click_steps; positions[1] += relax_steps;}
+      if (isMoveValid(0, positions[0] + one_click_steps)) {positions[0] += one_click_steps; positions[1] -= relax_steps;}
       else Serial.println("M1 move blocked by limits.");
       break;
 
     case 0x18: // Button 2: Move motor 1 -100 steps
-      if (isMoveValid(0, positions[0] - one_click_steps)) {positions[0] -= one_click_steps; positions[1] -= relax_steps;}
+      if (isMoveValid(0, positions[0] - one_click_steps)) {positions[0] -= one_click_steps; positions[1] += relax_steps;}
       else Serial.println("M1 move blocked by limits.");
       break;
 
     case 0x5E: // Button 3: Move motor 2 +100 steps
-      if (isMoveValid(1, positions[1] + one_click_steps)) {positions[1] += one_click_steps; positions[0] += relax_steps;}
+      if (isMoveValid(1, positions[1] + one_click_steps)) {positions[1] += one_click_steps; positions[0] -= relax_steps;}
       else Serial.println("M2 move blocked by limits.");
       break;
 
     case 0x8: // Button 4: Move motor 2 -100 steps
-      if (isMoveValid(1, positions[1] - one_click_steps)) {positions[1] -= one_click_steps; positions[0] -= relax_steps;}
+      if (isMoveValid(1, positions[1] - one_click_steps)) {positions[1] -= one_click_steps; positions[0] += relax_steps;}
       else Serial.println("M2 move blocked by limits.");
       break;
 
@@ -187,6 +182,13 @@ void handleIRCommand(unsigned long command) {
       for (int i = 0; i < 3; i++) positions[i] -= 200;
       break;
 
+    case 0x4A: // Return all motors to zero
+      positions[0] = M1_MAX_STEPS;
+      positions[1] = M1_MAX_STEPS * relax_ratio;
+      positions[2] = 0;
+      Serial.println("Motors returning to 0.");
+      break;
+
     case 0x47: // Return all motors to zero
       positions[0] = 0;
       positions[1] = 0;
@@ -195,15 +197,22 @@ void handleIRCommand(unsigned long command) {
       break;
 
     default:
-      Serial.println("Unknown IR command.");
+      if (command != 0 && command != 40){
+        Serial.println("Unknown IR command.");
+        Serial.println(command, HEX);
+      }
       return;
   }
 
 
   // For the MoveTO the passive motors need to relax some of the wire
-  // A 1 to 1 ratio does not work.
   steppers.moveTo(positions);
-  Serial.println("Motors moving to new positions.");
+  Serial.print("Moving to positions: M1=");
+  Serial.print(positions[0]);
+  Serial.print(" M2=");
+  Serial.print(positions[1]);
+  Serial.print(" M3=");
+  Serial.println(positions[2]);
 }
 
 void serialEvent() {
