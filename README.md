@@ -7,17 +7,25 @@
 I am working with a two cable spirob. I have the physical system build, including the SpiRob, Arduino 28BYJ-84 step motors, a motor holder and a spool. Wires go through the SpiRob and around the spool. The motors turn the spool and control the SpiRob's movement.
 
 
-For the idea of a SpiRob and the .stl models of both a two and three cable SpiRob,
-Credit to Zhanchi Wang, Nikolaos M. Freris, Xi Wei,  
-SpiRobs: Logarithmic spiral-shaped robots for versatile grasping across scales,  
-Device,
-Volume 3, Issue 4,
-2025,
-100646,
-ISSN 2666-9986,
-https://doi.org/10.1016/j.device.2024.100646.
-(https://www.sciencedirect.com/science/article/pii/S2666998624006033)  
-Keywords: soft robots; logarithmic spiral; multi-scale design; bioinspired design and operation
+# Components
+
+ - ### The SpiRob Arm
+ - ### The Base and Stand
+ - ### The Ardunio Step Motor 28BJY-48
+ - ### The Spools
+ - ### The Motor Stands
+ - ### The Wire
+   
+ - ### The Circiut
+     - Overview
+     - Parts
+ - ### Arduino Code
+   
+   
+   
+   
+
+
 
 
 
@@ -78,3 +86,16 @@ There are a few kinks to sort out -the spools connection to cable and shaft, the
  - Our robot lacked an elastic core to produce a restoring force towards the initial position. 
 
 
+
+
+For the idea of a SpiRob and the .stl models of both a two and three cable SpiRob,
+Credit to Zhanchi Wang, Nikolaos M. Freris, Xi Wei,  
+SpiRobs: Logarithmic spiral-shaped robots for versatile grasping across scales,  
+Device,
+Volume 3, Issue 4,
+2025,
+100646,
+ISSN 2666-9986,
+https://doi.org/10.1016/j.device.2024.100646.
+(https://www.sciencedirect.com/science/article/pii/S2666998624006033)  
+Keywords: soft robots; logarithmic spiral; multi-scale design; bioinspired design and operation
