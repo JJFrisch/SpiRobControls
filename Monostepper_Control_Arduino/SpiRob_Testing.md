@@ -28,6 +28,8 @@ As one motor works as the driving motor and curles the SpiRob in a direction, th
 some of its wire. 
 
 ##### 1:0  
+There is no movement of the SpiRob. One motor pulls but the other gives no slack so the robot stays stationary.
+[video]
 
 ##### 1:.1  
 
@@ -39,6 +41,9 @@ some of its wire.
 
 ##### 1:1  
 
+##### 1:.05  
+
+##### 1:.01  
 
 
 
