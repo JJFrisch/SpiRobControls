@@ -4,7 +4,7 @@
 
 ### Max Range of Motion Test in Each Direction  
 To the left as shown:  
-<img src="../Assets/Left_Motor_Max_Pull_Image.jpg" width="200">
+<img src="../../Assets/Left_Motor_Max_Pull_Image.jpg" width="200">
 
 
 The motor has a limit on how tight of a spiral it can pull the SpiRob into. With my hands I can pull the wire and the SpiRob will continue to bend into its full spiral, but 
@@ -33,21 +33,32 @@ There is no movement of the SpiRob. One motor pulls but the other gives no slack
 [video]
 
 ##### 1:.1  
+[video]
 
 ##### 1:.3  
+[video]
 
 ##### 1:.5  
+[video]
 
 ##### 1:.7  
+[video]
 
 ##### 1:1  
+[video]
 
 ##### 1:.05  
+[video]
 
 ##### 1:.01  
+[video]
 
 
+## Full Range of Motion  
+[video]
 
+## Attempting a Grab  
+[video]
 
 
 
