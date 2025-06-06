@@ -3,7 +3,7 @@
 #include <IRremote.hpp>
 
 // The Relax Ratio is what we are testing in this file
-double relax_ratio = 1;  // [1, .7, .5, .3, .1]
+double relax_ratio = .01;  // [1, .7, .5, .3, .1, 0, 0.05, 0.01]
 
 
 
@@ -143,22 +143,22 @@ void handleIRCommand(unsigned long command) {
 
   switch (command) {
     case 0xC: // Button 1: Move motor 1 +100 steps
-      if (isMoveValid(0, positions[0] + one_click_steps)) {positions[0] += one_click_steps; positions[1] -= relax_steps;}
+      if (isMoveValid(0, positions[0] + one_click_steps)) {positions[0] += one_click_steps; positions[1] += relax_steps;}
       else Serial.println("M1 move blocked by limits.");
       break;
 
     case 0x18: // Button 2: Move motor 1 -100 steps
-      if (isMoveValid(0, positions[0] - one_click_steps)) {positions[0] -= one_click_steps; positions[1] += relax_steps;}
+      if (isMoveValid(0, positions[0] - one_click_steps)) {positions[0] -= one_click_steps; positions[1] -= relax_steps;}
       else Serial.println("M1 move blocked by limits.");
       break;
 
     case 0x5E: // Button 3: Move motor 2 +100 steps
-      if (isMoveValid(1, positions[1] + one_click_steps)) {positions[1] += one_click_steps; positions[0] -= relax_steps;}
+      if (isMoveValid(1, positions[1] + one_click_steps)) {positions[1] += one_click_steps; positions[0] += relax_steps;}
       else Serial.println("M2 move blocked by limits.");
       break;
 
     case 0x8: // Button 4: Move motor 2 -100 steps
-      if (isMoveValid(1, positions[1] - one_click_steps)) {positions[1] -= one_click_steps; positions[0] += relax_steps;}
+      if (isMoveValid(1, positions[1] - one_click_steps)) {positions[1] -= one_click_steps; positions[0] -= relax_steps;}
       else Serial.println("M2 move blocked by limits.");
       break;
 
