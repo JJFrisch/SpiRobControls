@@ -4,10 +4,10 @@
 ### Quick Abstract
 ##### What are we doing? why? Lorem ipsum dolor sit amet, 
 
-I am working with a two cable spirob. I have the physical system build, including the SpiRob, Arduino 28BYJ-84 step motors, a motor holder and a spool. Wires go through the SpiRob and around the spool. The motors turn the spool and control the SpiRob's movement. My goal is to simulate its movement and use reinforcement learning to teach it to pick up different objects. A possible extension would be to add a camera and teach it to catch thrown objects.
+I am working with a two cable spirob. I have the physical system build, including the SpiRob, Arduino 28BYJ-84 step motors, a motor holder and a spool. Wires go through the SpiRob and around the spool. The motors turn the spool and control the SpiRob's movement.
 
 
-
+For the idea of a SpiRob and the .stl models of both a two and three cable SpiRob,
 Credit to Zhanchi Wang, Nikolaos M. Freris, Xi Wei,  
 SpiRobs: Logarithmic spiral-shaped robots for versatile grasping across scales,  
 Device,
