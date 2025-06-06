@@ -4,6 +4,7 @@
 
 ### Max Range of Motion Test in Each Direction  
 To the left as shown:
+![Uploading image.png…]()
 
 
 The motor has a limit on how tight of a spiral it can pull the SpiRob into. With my hands I can pull the wire and the SpiRob will continue to bend into its full spiral, but 
