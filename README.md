@@ -1,5 +1,7 @@
 # SpiRobControls
 
+<img src="Assets/SpiRob Zheng Lab Logo.png" width="200">
+
 
 ### Quick Abstract
 ##### What are we doing? why? Lorem ipsum dolor sit amet, 
