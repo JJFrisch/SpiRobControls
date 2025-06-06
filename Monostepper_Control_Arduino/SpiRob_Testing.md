@@ -8,7 +8,7 @@ To the left as shown:
 
 
 The motor has a limit on how tight of a spiral it can pull the SpiRob into. With my hands I can pull the wire and the SpiRob will continue to bend into its full spiral, but 
-the arduino step motor 28BYJ-48 is not capible of enough power. The amount of steps taken till the motor is unable to pull any farther is 3,620 steos.
+the arduino step motor 28BYJ-48 is not capible of enough power. The amount of steps taken till the motor is unable to pull any farther is 3,620 steps.
 
 To the right as shown:  
 
