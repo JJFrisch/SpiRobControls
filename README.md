@@ -12,15 +12,56 @@ I am working with a two cable spirob. I have the physical system build, includin
 # Components
 
  - ### The SpiRob Arm
+   
+![IMG_7711](https://github.com/user-attachments/assets/0837e2b8-34a1-4828-8349-c7bd39dd22cc)
+![IMG_7708](https://github.com/user-attachments/assets/fd5c9af3-754a-45e5-a628-6bd4fca264d5)
+
+   
  - ### The Base and Stand
+
+![IMG_7955](https://github.com/user-attachments/assets/a2900732-6b4f-4c79-b37e-c3dc7313f789)
+
+![IMG_7956](https://github.com/user-attachments/assets/f3c369db-63f8-4919-81c2-023af8348746)
+
+![IMG_7957](https://github.com/user-attachments/assets/ae125a1c-d629-4f01-ba3e-97defd598465)
+
+![IMG_7944](https://github.com/user-attachments/assets/9f7b5ae0-e98f-4ad6-b8dd-2201eaa29b3c)
+
+
  - ### The Ardunio Step Motor 28BJY-48
+
+![IMG_7952](https://github.com/user-attachments/assets/01a597e0-8427-45ba-b5a7-a2811b0426e8)
+
+![IMG_7951](https://github.com/user-attachments/assets/09d7b81a-e778-4405-bfa8-0c598f86fafd)
+
+
  - ### The Spools
+
+![image](https://github.com/user-attachments/assets/3744bbee-6153-4e29-9627-d0e1c8eeb5c0)
+
+
  - ### The Motor Stands
+
+![IMG_7747](https://github.com/user-attachments/assets/8d18ae8b-3cbf-4ba2-8d24-ba0bfe5bb8ca)
+
+
  - ### The Wire
+
+![IMG_7710](https://github.com/user-attachments/assets/2ccf6d8f-2b6d-4903-a922-1057082ab32c)
+
    
  - ### The Circiut
      - Overview
+
+![IMG_7953](https://github.com/user-attachments/assets/3ed8001d-32db-4f43-98fd-e997c2a4ab82)
+
+![IMG_7721](https://github.com/user-attachments/assets/1d9db685-0a94-4fb3-b1a6-6f870eb35c3d)
+
      - Parts
+
+![IMG_7954](https://github.com/user-attachments/assets/02e8638a-e66d-4b26-9215-6963f3577e0b)
+
+     
  - ### Arduino Code
    
    
