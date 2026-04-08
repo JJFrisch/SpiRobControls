@@ -1,3 +1,18 @@
+/**
+ * bipolar_stepper_motor.ino
+ *
+ * Controls a bipolar stepper motor driver (e.g. L298N) using two push buttons.
+ * Pressing Button 1 drives the motor forward; Button 2 drives it backward.
+ *
+ * Wiring:
+ *   Driver forward pin  -> Arduino pin 8
+ *   Driver backward pin -> Arduino pin 12
+ *   Button 1 (forward)  -> Arduino pin 2  (INPUT_PULLUP, active LOW)
+ *   Button 2 (backward) -> Arduino pin 3  (INPUT_PULLUP, active LOW)
+ *
+ * Hardware: Arduino Uno + L298N (or equivalent) bipolar stepper driver
+ */
+
 const int forwardPin = 8;
 const int backwardPin = 12;
 const int delayTime = 2000;

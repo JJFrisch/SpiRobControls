@@ -1,0 +1,25 @@
+# spirob_simulation — Python dependencies
+#
+# Install with:
+#   pip install -r requirements.txt
+#
+# NOTE: NVIDIA Isaac Sim / Isaac Lab are NOT pip-installable.
+#   Follow the official guide: https://isaac-sim.github.io/IsaacLab/
+#   The pxr (USD) package is included with Isaac Sim; do not install
+#   it separately unless running standalone USD scripts.
+
+# ── Mesh processing ──────────────────────────────────────────────────────────
+trimesh>=3.23
+numpy>=1.24
+
+# ── Physics simulation ───────────────────────────────────────────────────────
+mujoco>=3.0          # MuJoCo physics engine (Python bindings)
+dm_control>=1.0      # DeepMind control suite (optional, for dm_control envs)
+
+# ── Visualization / utilities ─────────────────────────────────────────────────
+matplotlib>=3.7
+scipy>=1.11
+
+# ── RL (if using Isaac Lab RL tasks) ─────────────────────────────────────────
+# torch>=2.0          # Uncomment if using GPU-accelerated RL training
+# torchvision>=0.15

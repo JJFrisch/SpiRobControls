@@ -1,26 +1,31 @@
+/**
+ * Max_Steps.ino
+ *
+ * EXPERIMENT: Finds the maximum pull distance each motor can achieve before
+ * stalling. Supports up to 3x 28BYJ-48 motors commanded via IR remote.
+ *
+ * MAX_STEPS is intentionally set to 50,000 (far above the production limit
+ * of 5,000) so the robot can be driven to its physical stall point.
+ * Results from this test informed the safe limits used in
+ * MultiMotor_Controls.ino and Testing_Relax_Ratio.ino.
+ *
+ * Measured stall steps (two-cable SpiRob, 25 mm spool diameter):
+ *   Motor 1 (left)  -- stalls at ~3,620 steps
+ *   Motor 2 (right) -- stalls at ~6,633 steps
+ *
+ * Wiring (all motors use ULN2003 driver boards):
+ *   Motor 1: IN1-IN4 -> pins  8,  9, 10, 11
+ *   Motor 2: IN1-IN4 -> pins  4,  5,  6,  7
+ *   Motor 3: IN1-IN4 -> pins  2,  3, A0, A1
+ *   IR receiver data -> pin 12
+ *
+ * IR commands (NEC protocol, generic 21-key remote):
+ *   0x0C  Button 1 -- drive M1 forward (pull left cable)
+ *   0x18  Button 2 -- drive M2 forward (pull right cable)
+ *   0x47  CH+      -- return all motors to zero
+ */
+
 #include <AccelStepper.h>
-#include <MultiStepper.h>
-#include <IRremote.hpp>
-
-
-// Define pins for 3 stepper motors
-#define motor1_pin1 8
-#define motor1_pin2 9
-#define motor1_pin3 10
-#define motor1_pin4 11
-
-#define motor2_pin1 4
-#define motor2_pin2 5
-#define motor2_pin3 6
-#define motor2_pin4 7
-
-#define motor3_pin1 2
-#define motor3_pin2 3
-#define motor3_pin3 A0
-#define motor3_pin4 A1
-
-// max steps for each motor
-const long MAX_STEPS = 50000;
 const long M1_MAX_STEPS = 50000;
 const long M2_MAX_STEPS = 50000;
 const long M3_MAX_STEPS = 50000;

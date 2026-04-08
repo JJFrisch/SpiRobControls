@@ -1,3 +1,13 @@
+"""
+clean_stl_files.py - Pre-processes raw SolidWorks STL exports for physics sim.
+
+Cleans, validates, scales (mm -> m), and simplifies each mesh so it is
+suitable for MuJoCo or Isaac Sim. Output files are written alongside the
+inputs with a 'cleaned_' prefix.
+
+Dependencies: trimesh, numpy
+    pip install trimesh numpy
+"""
 # mesh_cleaner.py
 import trimesh
 import numpy as np
@@ -50,13 +60,17 @@ def clean_stl_file(input_path, output_path):
 # Clean all STL files
 stl_files = [
     "spirob_body.stl",
-    "left_spool.stl", 
-    # "right_spool.stl",
+    "left_spool.stl",
+    "right_spool.stl",        # previously commented out -- add file to meshes/ to enable
     "left_motor_mount.stl",
-    # "right_motor_mount.stl",
+    "right_motor_mount.stl",  # previously commented out -- add file to meshes/ to enable
     "base_frame.stl"
 ]
 
-for stl_file in stl_files:
-    if os.path.exists(stl_file):
-        clean_stl_file(stl_file, f"cleaned_{stl_file}")
+if __name__ == "__main__":
+    import os
+    for stl_file in stl_files:
+        if os.path.exists(stl_file):
+            clean_stl_file(stl_file, f"cleaned_{stl_file}")
+        else:
+            print(f"Skipping {stl_file} (file not found)")

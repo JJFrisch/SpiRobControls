@@ -1,4 +1,16 @@
-# advanced_cable_physics.py - Deformable cable implementation
+"""
+advanced_cable_physics.py - Deformable cable implementation for USD/Isaac Sim.
+
+Creates a segmented soft-body cable between two anchor points using
+USD Physics spherical joints with stiffness and damping. Intended for
+use inside NVIDIA Omniverse / Isaac Sim to simulate the fishing-wire
+cables that actuate the SpiRob.
+
+Dependencies: omniverse (omni), pxr (usd-core), numpy
+"""
+
+import numpy as np
+from pxr import UsdGeom, UsdPhysics, Gf, Sdf  # noqa: F401
 
 def create_deformable_cable(stage, start_pos, end_pos, segments=20):
     """Create a deformable cable using soft body physics."""

@@ -1,9 +1,30 @@
-#include <AccelStepper.h>
-#include <MultiStepper.h>
-#include <IRremote.hpp>
+/**
+ * Testing_Relax_Ratio.ino
+ *
+ * EXPERIMENT: Systematically tests the effect of different relax ratios
+ * on SpiRob bending behavior.
+ *
+ * The relax_ratio controls how much slack the passive motor releases as
+ * the driving motor pulls. A ratio of 0 means the passive motor holds
+ * full tension (robot stays rigid); a ratio of 1 means it releases an
+ * equal amount (maximum bend).
+ *
+ * Tested values: [0, 0.01, 0.05, 0.1, 0.3, 0.5, 0.7, 1.0]
+ * Results are documented in SpiRob_Testing.md (same directory).
+ *
+ * To run a test: change `relax_ratio` below, upload to Arduino, and use
+ * the IR remote to drive the motors. Record video and log results.
+ *
+ * Wiring (all motors use ULN2003 driver boards):
+ *   Motor 1: IN1-IN4 -> pins  8,  9, 10, 11
+ *   Motor 2: IN1-IN4 -> pins  4,  5,  6,  7
+ *   Motor 3: IN1-IN4 -> pins  2,  3, A0, A1
+ *   IR receiver data -> pin 12
+ *
+ * See MultiMotor_Controls.ino for the production version (relax_ratio = 0.2)
+ */
 
-// The Relax Ratio is what we are testing in this file
-double relax_ratio = .01;  // [1, .7, .5, .3, .1, 0, 0.05, 0.01]
+#include <AccelStepper.h>
 
 
 

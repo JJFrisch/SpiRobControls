@@ -1,5 +1,31 @@
+/**
+ * IR_Remote_With_Stepper_Motor.ino
+ *
+ * Single-motor control via an IR remote and the Serial monitor.
+ * Accepts distance commands over Serial (e.g. "10\n" moves +10 cm),
+ * enforces a position limit (MAX_CM), and auto-retracts to home after
+ * 30 seconds of inactivity.
+ *
+ * Wiring (28BYJ-48 + ULN2003 driver board):
+ *   IN1 -> Arduino pin  8  (AccelStepper FULL4WIRE order: 8,10,9,11)
+ *   IN2 -> Arduino pin  9
+ *   IN3 -> Arduino pin 10
+ *   IN4 -> Arduino pin 11
+ *   IR receiver data pin -> Arduino pin 12
+ *
+ * IR Remote codes (NEC protocol, generic 21-key remote):
+ *   0x0C  Button 1  -- small step forward  (+50 steps)
+ *   0x18  Button 2  -- small step backward (-50 steps)
+ *   0x46  VOL+      -- large step forward  (+900 steps, speed 500)
+ *   0x15  VOL-      -- large step backward (-900 steps, speed 500)
+ *   0x43  CH-       -- pull 10 cm forward
+ *   0x44  CH        -- pull 10 cm backward
+ *   0x47  CH+       -- return to home (position 0)
+ *
+ * Library required: IRremote >= 4.x  (IRremote.hpp)
+ */
+
 #include <IRremote.hpp>
-#include "Stepper.h"
 
 #define STEPS 60                 // steps per revolution for internal gear
 #define IR_RECEIVE_PIN 12

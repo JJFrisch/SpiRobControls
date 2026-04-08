@@ -1,4 +1,24 @@
 
+/**
+ * Monostepper_Control_Arduino.ino
+ *
+ * Basic single-motor control for the 28BYJ-48 unipolar stepper motor using
+ * the built-in Arduino Stepper library. Tracks cumulative wire displacement
+ * in inches and enforces a configurable max-length safety limit.
+ *
+ * Motor wiring (28BYJ-48 + ULN2003 driver board):
+ *   IN1 -> Arduino pin  8
+ *   IN2 -> Arduino pin  9
+ *   IN3 -> Arduino pin 10
+ *   IN4 -> Arduino pin 11
+ *
+ * Key parameters:
+ *   StepsPerRevolution  2038    (28BYJ-48 with gear reduction)
+ *   max_length          30 in   (safety cutoff: motor stops if cumulative wire
+ *                                displacement exceeds this value)
+ *   radius_of_spin      0.2 in  (spool radius used to convert steps -> inches)
+ */
+
 #include <Stepper.h>
 
 #define StepsPerRevolution 2038
