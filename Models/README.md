@@ -1,46 +1,65 @@
-# SpiRobControls
+# Models
 
+This folder contains all SolidWorks part files (`.SLDPRT`), assemblies (`.SLDASM`), and exported print files (`.gcode`) for the SpiRob hardware system.
 
-### Quick Abstract
-##### What are we doing? why? Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+> **Note:** `~$*.SLDPRT` and `~$*.SLDASM` files are SolidWorks auto-save locks — they are excluded by `.gitignore` and should not be committed.
 
+---
 
+## Bill of Materials — 3D Printed Parts
 
-**May 6th 20205**
+| File | Description | Material | Est. Print Time |
+|---|---|---|---|
+| `BasePart.SLDPRT` | Original base frame | PLA | ~2 h |
+| `BasePart_ArduinoHolders.SLDPRT` | Base with integrated Arduino mounting pegs | PLA | ~2.5 h |
+| `05202025_BASEUPDATED.SLDPRT` | Updated base (May 20, 2025) — wider footprint for stability | PLA | ~3 h |
+| `Base For SpiRob (5-22-25).SLDPRT` | Base revision (May 22, 2025) | PLA | ~3 h |
+| `28byj-48-holder_longer base.SLDPRT` | Motor mount with extended base to reduce tipping | PLA | ~1.5 h |
+| `28byj-48_Spool_v1.SLDPRT` | Spool v1 for 28BYJ-48 motor shaft — wraps fishing wire | PLA | ~45 min |
+| `Data SpiRobs/2-cable SpiRob.SLDPRT` | Two-cable SpiRob body (logarithmic spiral) | TPU-70A | ~12 h |
+| `Data SpiRobs/SpiRob Assembly.SLDASM` | Full assembly: SpiRob + base + motor mounts + spools | — | — |
 
-Mini SpiRob Testing
+### Exported G-code
 
+| File | Description |
+|---|---|
+| `Data SpiRobs/SS_2-cable SpiRob.gcode` | Sliced print for the 2-cable SpiRob body |
+| `Data SpiRobs/Dual_3-cable SpiRob.gcode` | Sliced print for the 3-cable SpiRob body |
+| `Data SpiRobs/SS_Disk3D_Test.gcode` | Full-size disk adhesion test |
+| `Data SpiRobs/SS_Disk3D_Test_Small.gcode` | Small disk adhesion test |
 
+---
 
-https://github.com/user-attachments/assets/26b53d3d-497c-47d8-9731-5240ee73252a
+## Print Settings
 
+| Parameter | SpiRob Body | Structural Parts (base, mounts) |
+|---|---|---|
+| Material | TPU-70A | PLA |
+| Nozzle temp | 220–230 °C | 200–215 °C |
+| Bed temp | 30–40 °C | 60 °C |
+| Layer height | 0.2 mm | 0.2 mm |
+| Infill | 15–20% | 30–40% |
+| Print speed | 25–30 mm/s | 50 mm/s |
+| Supports | No | No |
 
+> **Tip:** The SpiRob body requires a flexible filament (TPU-70A). Print slowly and disable retraction or use minimal retraction to prevent filament jams. See [`3D Printer Troubleshooting Guide.md`](../3D%20Printer%20Troubleshooting%20Guide%20.md) for common issues.
 
+---
 
+## Known Design Limitations
 
+- The 28BYJ-48 motor torque (~34.3 mN·m) is insufficient to fully curl the two-cable SpiRob against high cable tension — stronger motors are a priority upgrade.
+- Fishing wire stretches at high tension, reducing precision at the ends of the range of motion. Braided line or Dyneema is recommended.
+- The SpiRob body was printed at too low an infill percentage in early iterations, causing buckling under stress. Use = 20% infill.
+- Without an elastic core, the SpiRob does not return to a neutral position passively.
 
-**May 8th 20205**
+---
 
-We started the print of our full sized SpiRob, testing SpiROb shown for scale. The full model has a 12 hour build time and is made of TPU-70A for flexibility and strength.
+## SpiRob Credit
 
-![thumbnail_IMG_7640](https://github.com/user-attachments/assets/e35ee814-b298-4bb8-a3fc-6146c4e591f1)
+The logarithmic-spiral SpiRob concept and original STL models are from:
 
-![thumbnail_IMG_7638](https://github.com/user-attachments/assets/9bb93bcb-c744-4a6c-aa65-d33fd86fd921)
-
-
-Monodirectional Stepper Motor Circuit
-
-![thumbnail_IMG_7642](https://github.com/user-attachments/assets/053f7348-bbb1-4e4f-949f-b7c14ebd4cb8)
-
-
-Bidirectional Stepper Motor Circuit
-
-![thumbnail_IMG_7641](https://github.com/user-attachments/assets/1ab60ccf-6b08-48b5-9135-00bfea3ea04c)
-
-
-We ran into an issue with printing using the right nozzle. Switching the TPU fillament to the other nozzle fixed this issue.
-
-https://github.com/user-attachments/assets/064c2381-0a16-4408-b68d-ab61ad8286e9
-
-
-
+> Zhanchi Wang, Nikolaos M. Freris, Xi Wei,
+> *SpiRobs: Logarithmic spiral-shaped robots for versatile grasping across scales*,
+> **Device**, Volume 3, Issue 4, 2025, 100646.
+> https://doi.org/10.1016/j.device.2024.100646

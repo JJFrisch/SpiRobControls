@@ -5,16 +5,17 @@
 ### Max Range of Motion Test in Each Direction  
 To the left as shown:  
 <img src="../../Assets/Left_Motor_Max_Pull_Image.jpg" width="200">
-<video src="path/to/video.mp4" width="320" height="240" controls></video>
+
+> 📹 **Video pending upload** — embed link here once uploaded to GitHub Assets.
 
 
 The motor has a limit on how tight of a spiral it can pull the SpiRob into. With my hands I can pull the wire and the SpiRob will continue to bend into its full spiral, but 
-the arduino step motor 28BYJ-48 is not capible of enough power. The amount of steps taken till the motor is unable to pull any farther is 3,620 steps.
+the arduino step motor 28BYJ-48 is not capable of enough power. The amount of steps taken till the motor is unable to pull any farther is 3,620 steps.
 
 To the right as shown:  
 
 
-The right side motor is able to pull the SpiRob farther than the left hand motor. This is likley because the right hand motor is part of a newer kit. 
+The right side motor is able to pull the SpiRob farther than the left hand motor. This is likely because the right hand motor is part of a newer kit. 
 The amount of steps taken till the motor failed to pull is higher this time at 6633 steps.
 
 The code for these two runs can be found in the Max_Steps file. I used remote command 1 for to pull to the left and remote command 2 to pull to the right.
@@ -24,9 +25,9 @@ The maximum torque of an Arduino step motor 28BYJ-48 is approximately 34.3 mN·m
 
 
 
-### Expirementing with the Amount of Slack
+### Experimenting with the Amount of Slack
 
-As one motor works as the driving motor and curles the SpiRob in a direction, the other passive motor is responsible for maintaining a level of tension on its wire while simotaniously unspooling 
+As one motor works as the driving motor and curls the SpiRob in a direction, the other passive motor is responsible for maintaining a level of tension on its wire while simultaneously unspooling
 some of its wire. 
 
 ##### 1:0  
