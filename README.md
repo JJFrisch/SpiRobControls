@@ -4,9 +4,10 @@
 
 
 ### Quick Abstract
-##### What are we doing? why? Lorem ipsum dolor sit amet, 
 
-I am working with a two cable spirob. I have the physical system build, including the SpiRob, Arduino 28BYJ-84 step motors, a motor holder and a spool. Wires go through the SpiRob and around the spool. The motors turn the spool and control the SpiRob's movement.
+This project implements hardware control and physics-based simulation for a two-cable **[SpiRob](https://doi.org/10.1016/j.device.2024.100646)** — a logarithmic-spiral-shaped soft robot capable of versatile grasping. Two 28BYJ-48 stepper motors tension and release fishing-wire cables that thread through a spiral TPU body, causing it to curl in a controlled direction. This repo covers the full stack: 3D-printed hardware, Arduino motor control sketches, and physics-based simulation environments in MuJoCo and Isaac Lab.
+
+I am working with a two-cable SpiRob. I have the physical system built, including the SpiRob, Arduino 28BYJ-48 stepper motors, a motor holder, and a spool. Wires go through the SpiRob and around the spool. The motors turn the spool and control the SpiRob's movement.
 
 
 # Components
@@ -28,7 +29,7 @@ I am working with a two cable spirob. I have the physical system build, includin
 ![IMG_7944](https://github.com/user-attachments/assets/9f7b5ae0-e98f-4ad6-b8dd-2201eaa29b3c)
 
 
- - ### The Ardunio Step Motor 28BJY-48
+ - ### The Arduino Stepper Motor 28BYJ-48
 
 ![IMG_7952](https://github.com/user-attachments/assets/01a597e0-8427-45ba-b5a7-a2811b0426e8)
 
@@ -63,16 +64,51 @@ I am working with a two cable spirob. I have the physical system build, includin
 
      
  - ### Arduino Code
-   
-   
-   
-   
 
+   | Sketch | Description |
+   |---|---|
+   | [`Monostepper_Control_Arduino.ino`](Controls/Monostepper_Control_Arduino/Monostepper_Control_Arduino.ino) | Single-motor step tracking with length-based safety limit |
+   | [`IR_Remote_With_Stepper_Motor.ino`](Controls/Monostepper_Control_Arduino/IR_Remote_With_Stepper_Motor/IR_Remote_With_Stepper_Motor.ino) | IR remote + Serial control with auto-retract safety |
+   | [`Max_Steps.ino`](Controls/Monostepper_Control_Arduino/Max_Steps/Max_Steps.ino) | Stall-finding experiment (measured physical motor limits) |
+   | [`MultiMotor_Controls.ino`](Controls/Monostepper_Control_Arduino/MultiMotor_Controls/MultiMotor_Controls.ino) | Production 3-motor controller with relax-ratio cable coordination |
+   | [`Testing_Relax_Ratio.ino`](Controls/Monostepper_Control_Arduino/Testing_Relax_Ratio/Testing_Relax_Ratio.ino) | Experiments to tune the passive-motor slack ratio |
+   | [`bipolar_stepper_motor.ino`](Controls/bipolar_stepper_motor/bipolar_stepper_motor.ino) | Bipolar stepper driver test with push buttons |
 
+---
 
+## 🚀 Getting Started
 
+### Hardware Required
+- 2× 28BYJ-48 stepper motors + ULN2003 driver boards
+- Arduino Uno (or compatible)
+- IR remote (NEC protocol, 21-key generic) + VS1838B receiver module
+- 3D-printed SpiRob body (TPU-70A), spools, motor mounts, and base — see [`Models/`](Models/)
+- Fishing wire
 
-**May 6th 20205**
+### Wiring
+```
+Motor 1 ULN2003:  IN1→8  IN2→9  IN3→10  IN4→11
+Motor 2 ULN2003:  IN1→4  IN2→5  IN3→6   IN4→7
+IR Receiver data: → pin 12
+```
+
+### Arduino Library Dependencies
+Install via **Arduino IDE → Tools → Manage Libraries**:
+- **AccelStepper** by Mike McCauley
+- **IRremote** ≥ 4.x by Armin Joachimsmeyer
+- **Stepper** (built-in) and **MultiStepper** (built-in with AccelStepper)
+
+### Recommended Upload Order
+1. `Monostepper_Control_Arduino.ino` — verify single motor wiring
+2. `Max_Steps.ino` — find stall limits of each motor
+3. `Testing_Relax_Ratio.ino` — tune passive-motor slack ratio
+4. `MultiMotor_Controls.ino` — deploy coordinated two-cable control
+
+---
+
+## 📓 Lab Log
+
+**May 6th, 2025**
 
 Mini SpiRob Testing
 
@@ -85,7 +121,7 @@ https://github.com/user-attachments/assets/26b53d3d-497c-47d8-9731-5240ee73252a
 
 
 
-**May 8th 20205**
+**May 8th, 2025**
 
 We started the print of our full sized SpiRob, testing SpiROb shown for scale. The full model has a 12 hour build time and is made of TPU-70A for flexibility and strength.
 
@@ -123,7 +159,7 @@ There are a few kinks to sort out -the spools connection to cable and shaft, the
 
 # Flaws and Possible Improvements
 
- - Stronger motors: the arduino step motor 28BJY-48 does not produce enough torque to fully curl or control the two-cable SpiRob. 
+ - Stronger motors: the Arduino stepper motor 28BYJ-48 does not produce enough torque to fully curl or control the two-cable SpiRob. 
  - We use fishing wire. It is too stretchable a wire which stretches instead of pulling the SpiRob at ends of the domain where tension is high.
  - When printing the SpiRob arm we used too low an infil percent. The structure of the SpiRob sometimes buckles under higher stress.
  - Our robot lacked an elastic core to produce a restoring force towards the initial position. 
